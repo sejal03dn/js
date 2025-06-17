@@ -1,120 +1,29 @@
-function emojiCallFunction(cb) {
-    fetch
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(
-                    "Emoji Fetch Failed"
-                );
-            }
-            return response.json();
-        })
-        .then((data) => {
-            cb(data);
-        })
-        .catch((error) => {
-            console.error(
-                "Error Occured:",
-                error
-            );
-            cb({});
-        });
+const coinIcon = document.getElementById('coin');
+const tossBtn = 
+    document.getElementById('toss-button');
+const result = 
+    document.querySelector('.result');
+coinIcon.insertAdjacentElement('afterend', result);
+tossBtn.addEventListener('click', () => {
+    tossBtn.disabled = true;
+    tossCoinFunction();
+});
+function tossCoinFunction() {
+    const randomVal = Math.random();
+    const faceCoin = randomVal < 0.5 ? 'Heads' : 'Tails';
+    const imageUrl = faceCoin === 'Heads' ?
+'https://media.geeksforgeeks.org/wp-content/uploads/20231016151817/heads.png' :
+'https://media.geeksforgeeks.org/wp-content/uploads/20231016151806/tails.png';
+        
+    coinIcon.classList.add('flip');
+    setTimeout(() => {
+        coinIcon.innerHTML = 
+            `<img src="${imageUrl}" alt="${faceCoin}">`;
+        coinIcon.classList.remove('flip');
+        setTimeout(() => {
+            result.textContent = `Result: ${faceCoin}`;
+            result.style.opacity = 1;
+            tossBtn.disabled = false;
+        }, 500);
+    }, 1000);
 }
-
-function randomEmoji(emojiIn) {
-    const randombtn =
-        document.getElementById(
-            "generate-random-btn"
-        );
-    randombtn.addEventListener(
-        "click",
-        () => {
-            emojiShow(emojiIn);
-        }
-    );
-}
-
-function emojiShow(emojiInfo) {
-    const Moodfeel =
-        Object.keys(emojiInfo);
-    const randomFeel =
-        Moodfeel[
-            Math.floor(
-                Math.random() *
-                    Moodfeel.length
-            )
-        ];
-    const emojiIcon =
-        emojiInfo[randomFeel];
-    if (
-        emojiIcon &&
-        emojiIcon.length > 0
-    ) {
-        const anyEmoji =
-            emojiIcon[
-                Math.floor(
-                    Math.random() *
-                        emojiIcon.length
-                )
-            ];
-        previewEmoji(
-            randomFeel,
-            anyEmoji.emoji
-        );
-    }
-}
-
-function previewEmoji(mood, emo) {
-    document.getElementById(
-        "emoji-name"
-    ).textContent = mood;
-    document.getElementById(
-        "emoji"
-    ).textContent = emo;
-}
-
-function defaultEmoji() {
-    emojiCallFunction(function (
-        emojiData
-    ) {
-        document
-            .querySelectorAll(
-                ".feeling-button"
-            )
-            .forEach((button) => {
-                button.addEventListener(
-                    "click",
-                    () => {
-                        const feeling =
-                            button
-                                .dataset
-                                .feeling;
-                        const emoji =
-                            emojiData[
-                                feeling
-                            ];
-                        if (
-                            emoji &&
-                            emoji.length >
-                                0
-                        ) {
-                            const anyEmoji =
-                                emoji[
-                                    Math.floor(
-                                        Math.random() *
-                                            emoji.length
-                                    )
-                                ];
-                            previewEmoji(
-                                feeling,
-                                anyEmoji.emoji
-                            );
-                        }
-                    }
-                );
-            });
-        randomEmoji(emojiData);
-        emojiShow(emojiData);
-    });
-}
-
-defaultEmoji();
