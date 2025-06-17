@@ -1,51 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Coin Toss</title>
 </head>
+
 <body>
-    <div id="clock">8:10:45</div>
-    <script>
-        
-setInterval(showTime, 1000);
-function showTime() {
-    let time = new Date();
-    let hour = time.getHours();
-    let min = time.getMinutes();
-    let sec = time.getSeconds();
-    am_pm = "AM";
-
-    // Setting time for 12 Hrs format
-    if (hour >= 12) {
-        if (hour > 12) hour -= 12;
-        am_pm = "PM";
-    } else if (hour == 0) {
-        hr = 12;
-        am_pm = "AM";
-    }
-
-    hour =
-        hour < 10 ? "0" + hour : hour;
-    min = min < 10 ? "0" + min : min;
-    sec = sec < 10 ? "0" + sec : sec;
-
-    let currentTime =
-        hour +
-        ":" +
-        min +
-        ":" +
-        sec +
-        am_pm;
-
-    // Displaying the time
-    document.getElementById(
-        "clock"
-    ).innerHTML = currentTime;
-}
-
-showTime();
-
-    </script>
+  <div class="coin-container">
+    <h1 class="title">
+      GeeksforGeeks
+    </h1>
+    <h3>
+      Coin Toss using HTML,
+      CSS, and JavaScript
+    </h3>
+    <br />
+    <div class="coin" id="coin">
+      <img src=
+"https://media.geeksforgeeks.org/wp-content/uploads/20231016151806/tails.png" 
+           alt="Heads" />
+    </div>
+    <button id="toss-button">
+      Toss Coin
+    </button>
+  </div>
+  <p class="result"></p>
+  <script src="script.js"></script>
 </body>
 
 </html>
